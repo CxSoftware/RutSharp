@@ -212,10 +212,7 @@ namespace CxSoftware.RutSharp
 
 		private static IEnumerable <int> GetDigits (int numero)
 		{
-			do
-			{
-				yield return numero % 10;
-			}
+			do yield return numero % 10;
 			while ((numero /= 10) > 0);
 		}
 
