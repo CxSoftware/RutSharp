@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using System.Text;
@@ -209,15 +210,22 @@ namespace CxSoftware.RutSharp
 					"El número de RUT no puede ser menor a 1 o mayor a 99.999.999");
 		}
 
+		private static IEnumerable <int> GetDigits (int numero)
+		{
+			do
+			{
+				yield return numero % 10;
+			}
+			while ((numero /= 10) > 0);
+		}
+
 		private static char GenerateDV (int numero)
 		{
-			return "0K987654321" [  
-				Enumerable  
-					.Range (0, (int) Math.Floor (Math.Log10 (numero)) + 2)  
-					.Select (i =>  
-						((i % 6) + 2) *  
-						((numero / (int) Math.Pow (10, i)) % 10))  
-					.Sum () % 11];  
+			return "0K987654321" [
+				GetDigits (numero)
+					.Select ((d, i) =>  
+						((i % 6) + 2) * d)
+					.Sum () % 11];
 		}
 	}
 }
