@@ -136,6 +136,59 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
+		public void TestParseConGuion1 ()
+		{
+			var rut = Rut.Parse ("18780209-1");
+			Assert.IsNotNull (rut);
+			Assert.AreEqual (rut.Numero, 18780209);
+			Assert.AreEqual (rut.DV, '1');
+		}
+
+		[Test]
+		public void TestParseConGuion2 ()
+		{
+			var rut = Rut.Parse ("18.780.209-1");
+			Assert.IsNotNull (rut);
+			Assert.AreEqual (rut.Numero, 18780209);
+			Assert.AreEqual (rut.DV, '1');
+		}
+
+		[Test]
+		public void TestParseConGuion3 ()
+		{
+			var rut = Rut.Parse ("22582584-k");
+			Assert.IsNotNull (rut);
+			Assert.AreEqual (rut.Numero, 22582584);
+			Assert.AreEqual (rut.DV, 'K');
+		}
+
+		[Test]
+		public void TestParseConGuion4 ()
+		{
+			var rut = Rut.Parse ("22582584-K");
+			Assert.IsNotNull (rut);
+			Assert.AreEqual (rut.Numero, 22582584);
+			Assert.AreEqual (rut.DV, 'K');
+		}
+
+		[Test]
+		[ExpectedException]
+		public void TestParseConGuionInvalid1 ()
+		{
+			var rut = Rut.Parse ("22582584K", ReglasRut.ConGuion);
+			Assert.IsNotNull (rut);
+			Assert.AreEqual (rut.Numero, 22582584);
+			Assert.AreEqual (rut.DV, 'K');
+		}
+
+		[Test]
+		[ExpectedException]
+		public void TestParseConGuionInvalid2 ()
+		{
+			Rut.Parse ("22582584--K", ReglasRut.ConGuion);
+		}
+
+		[Test]
 		public void TestMinimumValid ()
 		{
 			var rut = new Rut (1);
