@@ -187,7 +187,7 @@ namespace CxSoftware.RutSharp
 			// Guión
 			if ((reglas & ReglasRut.ConGuion) == ReglasRut.ConGuion)
 				sb.Append ("\\-");
-			if ((reglas & ReglasRut.SinGuion) != ReglasRut.SinGuion)
+			else if ((reglas & ReglasRut.SinGuion) != ReglasRut.SinGuion)
 				sb.Append ("\\-?");
 
 			// DV
