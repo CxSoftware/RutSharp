@@ -67,6 +67,27 @@ namespace CxSoftware.RutSharp
 		// Methods
 
 		/// <summary>
+		/// Determines whether the specified <see cref="System.Object"/> is equal to the current <see cref="CxSoftware.RutSharp.Rut"/>.
+		/// </summary>
+		/// <param name="o">The <see cref="System.Object"/> to compare with the current <see cref="CxSoftware.RutSharp.Rut"/>.</param>
+		/// <returns><c>true</c> if the specified <see cref="System.Object"/> is equal to the current
+		/// <see cref="CxSoftware.RutSharp.Rut"/>; otherwise, <c>false</c>.</returns>
+		public override bool Equals (object o)
+		{
+			var rut2 = o as Rut;
+			return (this == rut2);
+		}
+
+		/// <summary>
+		/// Serves as a hash function for a <see cref="CxSoftware.RutSharp.Rut"/> object.
+		/// </summary>
+		/// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a hash table.</returns>
+		public override int GetHashCode ()
+		{
+			return this.Numero.GetHashCode ();
+		}
+
+		/// <summary>
 		/// Retorna un <see cref="System.String"/>
 		/// que representa al <see cref="CxSoftware.RutSharp.Rut"/>.
 		/// </summary>
@@ -165,6 +186,28 @@ namespace CxSoftware.RutSharp
 
 			// Done
 			return new Rut (numero, dv);
+		}
+
+
+
+		// Operators
+
+		public static bool operator == (Rut rut1, Rut rut2)
+		{
+			var o1 = (object) rut1;
+			var o2 = (object) rut2;
+
+			if (o1 == null && o2 == null)
+				return true;
+			if (o1 == null || o2 == null)
+				return false;
+
+			return rut1.Numero == rut2.Numero;
+		}
+
+		public static bool operator != (Rut rut1, Rut rut2)
+		{
+			return !(rut1 == rut2);
 		}
 
 

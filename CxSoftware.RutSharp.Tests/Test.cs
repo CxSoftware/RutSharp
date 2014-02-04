@@ -411,6 +411,62 @@ namespace CxSoftware.RutSharp.Tests
 			Assert.IsNotNull (rutString, "rut.ToString()");
 			Assert.AreEqual (rutString, "21.098.755-K");
 		}
+
+		[Test]
+		public void TestCompareEquals ()
+		{
+			var rut1 = new Rut (5264875);
+			var rut2 = new Rut (5264875);
+			Assert.AreEqual (rut1, rut2);
+		}
+
+		[Test]
+		public void TestCompareEqualOperator1 ()
+		{
+			var rut1 = new Rut (5264875);
+			var rut2 = new Rut (5264875);
+			Assert.IsTrue (rut1 == rut2);
+		}
+
+		[Test]
+		public void TestCompareEqualOperator2 ()
+		{
+			var rut1 = new Rut (5264875);
+			var rut2 = new Rut (5264876);
+			Assert.IsFalse (rut1 == rut2);
+		}
+
+		[Test]
+		public void TestCompareNotEqualOperator1 ()
+		{
+			var rut1 = new Rut (5264875);
+			var rut2 = new Rut (5264876);
+			Assert.IsTrue (rut1 != rut2);
+		}
+
+		[Test]
+		public void TestCompareNotEqualOperator2 ()
+		{
+			var rut1 = new Rut (5264875);
+			var rut2 = new Rut (5264875);
+			Assert.IsFalse (rut1 != rut2);
+		}
+
+		[Test]
+		public void TestGetHashCode1 ()
+		{
+			var rut1 = new Rut (79584555);
+			var rut2 = new Rut (79584555);
+			Assert.AreEqual (rut1.GetHashCode (), rut2.GetHashCode ());
+		}
+
+		[Test]
+		public void TestGetHashCode2 ()
+		{
+			var rut1 = new Rut (79584555);
+			var rut2 = new Rut (79584557);
+			Assert.AreNotEqual (rut1.GetHashCode (), rut2.GetHashCode ());
+		}
 	}
 }
 
