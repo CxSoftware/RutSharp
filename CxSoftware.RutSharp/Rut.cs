@@ -1,17 +1,46 @@
+// <copyright file="Rut.cs" company="CxSoftware">
+// The MIT License (MIT)
+//
+// Copyright (c) 2014 Cx Software Ltda.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+// </copyright>
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace CxSoftware.RutSharp
 {
+	/// <summary>
+	/// Representa un RUT o RUN chileno
+	/// </summary>
 	public class Rut
 	{
 		// Static fields
 
-		private static readonly CultureInfo chileanCulture = new CultureInfo ("es-CL");
+		/// <summary>
+		/// Cultura chilena. Se utiliza para imprimir el número de Rut con separador de miles.
+		/// </summary>
+		private static readonly CultureInfo ChileanCulture = new CultureInfo ("es-CL");
 
 
 
@@ -75,7 +104,7 @@ namespace CxSoftware.RutSharp
 		public override bool Equals (object o)
 		{
 			var rut2 = o as Rut;
-			return (this == rut2);
+			return this == rut2;
 		}
 
 		/// <summary>
@@ -120,7 +149,7 @@ namespace CxSoftware.RutSharp
 			if ((reglas & ReglasRut.SinSeparadorDeMiles) == ReglasRut.SinSeparadorDeMiles)
 				sb.Append (this.Numero.ToString (CultureInfo.InvariantCulture));
 			else
-				sb.Append (this.Numero.ToString ("#,#", chileanCulture));
+				sb.Append (this.Numero.ToString ("#,#", ChileanCulture));
 
 			// Part 2
 			if ((reglas & ReglasRut.SinGuion) == 0)
@@ -161,6 +190,7 @@ namespace CxSoftware.RutSharp
 		/// y con el dígito verificador en mayúscula o minúscula.
 		/// </remarks>
 		/// <param name="texto">El texto que representa al RUT</param>
+		/// <returns>Rut</returns>
 		public static Rut Parse (string texto)
 		{
 			return Parse (texto, ReglasRut.Ninguna);
@@ -172,6 +202,7 @@ namespace CxSoftware.RutSharp
 		/// </summary>
 		/// <param name="texto">El texto del RUT</param>
 		/// <param name="reglas">Reglas a aplicar</param>
+		/// <returns>Rut</returns>
 		public static Rut Parse (string texto, ReglasRut reglas)
 		{
 			// Build regex
@@ -192,6 +223,10 @@ namespace CxSoftware.RutSharp
 
 		// Operators
 
+		/// <summary>Operador de sigualdad entre dos Ruts</summary>
+		/// <param name="rut1">Rut1</param>
+		/// <param name="rut2">Rut2</param>
+		/// <returns>Retorna verdadero si los dos Ruts son iguales</returns>
 		public static bool operator == (Rut rut1, Rut rut2)
 		{
 			var o1 = (object) rut1;
@@ -205,6 +240,10 @@ namespace CxSoftware.RutSharp
 			return rut1.Numero == rut2.Numero;
 		}
 
+		/// <summary>Operador de desigualdad entre dos Ruts</summary>
+		/// <param name="rut1">Rut1</param>
+		/// <param name="rut2">Rut2</param>
+		/// <returns>Retorna verdadero si los dos Ruts son diferentes</returns>
 		public static bool operator != (Rut rut1, Rut rut2)
 		{
 			return !(rut1 == rut2);
@@ -214,6 +253,11 @@ namespace CxSoftware.RutSharp
 
 		// Private static methods
 
+		/// <summary>
+		/// Crea la expresión regular para parsear el Rut según las reglas indicadas
+		/// </summary>
+		/// <returns>La expresión regular</returns>
+		/// <param name="reglas">Reglas para el parseo del Rut</param>
 		private static string BuildRegex (ReglasRut reglas)
 		{
 			// Init
@@ -245,20 +289,35 @@ namespace CxSoftware.RutSharp
 			return sb.ToString ();
 		}
 
+		/// <summary>
+		/// Verifica que el número de Rut sea válido
+		/// </summary>
+		/// <param name="numero">Numero de Rut</param>
 		private static void Check (int numero)
 		{
 			if (numero < 1 || numero >= 100000000)
 				throw new ArgumentOutOfRangeException (
-					"numero", numero,
+					"numero",
+					numero,
 					"El número de RUT no puede ser menor a 1 o mayor a 99.999.999");
 		}
 
+		/// <summary>
+		/// Devuelve los dígitos de un número entero de derecha a izquierda
+		/// </summary>
+		/// <returns>Los digitos</returns>
+		/// <param name="numero">Numero</param>
 		private static IEnumerable <int> GetDigits (int numero)
 		{
 			do yield return numero % 10;
 			while ((numero /= 10) > 0);
 		}
 
+		/// <summary>
+		/// Genera el dígito verificador del Rut utilizando el algoritmo "módulo 11"
+		/// </summary>
+		/// <returns>El dígito verificador</returns>
+		/// <param name="numero">Número de Rut</param>
 		private static char GenerateDV (int numero)
 		{
 			return "0K987654321" [
