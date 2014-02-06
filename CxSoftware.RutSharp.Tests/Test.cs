@@ -7,6 +7,20 @@ namespace CxSoftware.RutSharp.Tests
 	public class Test
 	{
 		[Test]
+		[ExpectedException]
+		public void TestParseNull ()
+		{
+			Rut.Parse (null);
+		}
+
+		[Test]
+		[ExpectedException]
+		public void TestParseEmpty ()
+		{
+			Rut.Parse (string.Empty);
+		}
+
+		[Test]
 		public void TestParseReglasNingunaValid1 ()
 		{
 			var rut = Rut.Parse ("9.986.332-3");
