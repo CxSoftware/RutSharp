@@ -44,6 +44,12 @@ namespace CxSoftware.RutSharp
 
 
 
+		// Fields
+
+		private int numero;
+
+
+
 		// Properties
 
 		/// <summary>
@@ -54,11 +60,27 @@ namespace CxSoftware.RutSharp
 		/// <summary>
 		/// Número del RUT
 		/// </summary>
-		public int Numero { get; private set; }
+		public int Numero
+		{
+			get { return this.numero; }
+			set
+			{
+				this.numero = value;
+				this.DV = GenerateDV (value);
+			}
+		}
 
 
 
 		// Constructor
+
+		/// <summary>
+		/// Inicializa un RUT vacío
+		/// </summary>
+		public Rut ()
+		{
+			this.Numero = 0;
+		}
 
 		/// <summary>
 		/// Inicializa una instancia del RUT según su número
@@ -68,7 +90,6 @@ namespace CxSoftware.RutSharp
 		{
 			Check (numero);
 			this.Numero = numero;
-			this.DV = GenerateDV (numero);
 		}
 
 		/// <summary>
@@ -88,7 +109,6 @@ namespace CxSoftware.RutSharp
 						numero));
 
 			this.Numero = numero;
-			this.DV = dv2;
 		}
 
 
