@@ -205,21 +205,54 @@ namespace CxSoftware.RutSharp
 		/// <returns>Rut</returns>
 		public static Rut Parse (string texto, ReglasRut reglas)
 		{
+			return Parse (
+				texto,
+				BuildRegex (reglas),
+				numero => numero.Replace (".", string.Empty));
+		}
+
+		/// <summary>
+		/// Crea un nuevo RUT tomando en cuenta el texto ingresado
+		/// y utilizando una expresión regular definida. Esta expresión
+		/// regular debe contener dos grupo: "numero" para el número del RUT
+		/// y "dv" para el dígito verificador.
+		/// </summary>
+		/// <param name="texto">El texto del RUT</param>
+		/// <param name="regex">Expresión regular a evaluar</param>
+		/// <returns>Rut</returns>
+		public static Rut Parse (string texto, string regex)
+		{
+			return Parse (texto, regex, null);
+		}
+
+		/// <summary>
+		/// Crea un nuevo RUT tomando en cuenta el texto ingresado,
+		/// utilizando una expresión regular definida y modificando el
+		/// texto a través de una función dada. La expresión
+		/// regular debe contener dos grupo: "numero" para el número del RUT
+		/// y "dv" para el dígito verificador.
+		/// </summary>
+		/// <param name="texto">El texto del RUT</param>
+		/// <param name="regex">Expresión regular a evaluar</param>
+		/// <param name="funcNumero">Función que modifica el texto del RUT una vez obtenido desde la expresión regular</param>
+		/// <returns>Rut</returns>
+		public static Rut Parse (string texto, string regex, Func<string, string> funcNumero)
+		{
 			// Build regex
-			var regex = new Regex (BuildRegex (reglas));
-			var match = regex.Match (texto);
+			var match = Regex.Match (texto, regex);
 			if (!match.Success)
 				throw new ArgumentException ("El texto no tiene formato esperado: " + texto);
 
 			// Get parts
-			var numero = int.Parse (match.Groups ["numero"].Value.Replace (".", string.Empty));
+			var numeroString = match.Groups ["numero"].Value;
+			if (funcNumero != null)
+				numeroString = funcNumero (numeroString);
+			var numero = int.Parse (numeroString);
 			var dv = match.Groups ["dv"].Value [0];
 
 			// Done
 			return new Rut (numero, dv);
 		}
-
-
 
 		// Operators
 
