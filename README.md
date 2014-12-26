@@ -62,6 +62,10 @@ Las reglas son máscaras de bits y, por lo tanto, pueden combinarse. Por ejemplo
 Las reglas disponibles son:
 
 * Ninguna: No se aplica ninguna regla especial. En el caso de Parse, esto permite soportar todos los formatos.
+* ConCeroALaIzquierda: Cero a la izquierda. En el caso de Parse, se exige un cero a la izquierda. En el caso de ToString, se genera con 
+un cero al inicio.
+* SinCeroALaIzquierda: Sin cero a la izquierda. En el caso de Parse, no se permite un ero a la izquierda. En el caso de ToString, se 
+genera sin un cero al inicio.
 * ConSeparadorDeMiles: Separador de miles. En el caso de Parse, se exige el separador (punto). En el caso de ToString, se utiliza el separador.
 * SinSeparadorDeMiles: Sin separador de miles. En el caso de Parse, se prohibe el uso de separador. En el caso de ToString, no se utiliza el 
 separador.
@@ -79,6 +83,8 @@ Algunos ejemplos son:
 ```
 var r = new Rut (5023293);
 r.ToString (); // "5.023.293-K"
+r.ToString (ReglasRut.ConCeroALaIzquierda); // "05.023.293-K"
+r.ToString (ReglasRut.SinCeroALaIzquierda); // "5.023.293-K"
 r.ToString (ReglasRut.ConSeparadorDeMiles); // "5.023.293-K"
 r.ToString (ReglasRut.SinSeparadorDeMiles); // "5023293-K"
 r.ToString (ReglasRut.ConGuion); // "5.023.293-K"
@@ -87,7 +93,9 @@ r.ToString (ReglasRut.Mayuscula); // "5.023.293-K"
 r.ToString (ReglasRut.Minuscula); // "5.023.293-k"
 r.ToString (ReglasRut.SinSeparadorDeMiles | ReglasRut.SinGuion); // "5023293K"
 r.ToString (ReglasRut.SinSeparadorDeMiles | ReglasRut.Minuscula); // "5023293-k"
-r.ToString (ReglasRut.SinSeparadorDeMiles | ReglasRut.SinGuion | RegalasRut.Minuscula); // "5023293k"
+r.ToString (ReglasRut.SinSeparadorDeMiles | ReglasRut.SinGuion | ReglasRut.Minuscula); // "5023293k"
+r.ToString (ReglasRut.ConCeroALaIzquierda | ReglasRut.SinSeparadorDeMiles | ReglasRut.SinGuion | ReglasRut.Minuscula); // "05023293k"
+
 ```
 
 
