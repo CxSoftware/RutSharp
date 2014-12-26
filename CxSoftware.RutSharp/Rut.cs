@@ -246,14 +246,51 @@ namespace CxSoftware.RutSharp
 			// Build regex
 			var match = Regex.Match (texto, regex);
 			if (!match.Success)
-				throw new ArgumentException ("El texto no tiene formato esperado: " + texto);
+				throw new ArgumentException (
+					string.Format (
+						"El texto no tiene formato esperado. " +
+						"Texto: \"{0}\". " +
+						"Expresión regular: \"{1}\".",
+						texto,
+						regex));
 
-			// Get parts
+			// Check regex groups
+			if (match.Groups ["numero"] == null)
+				throw new Exception ("La expresión regular no contiene un grupo llamado \"número\": " + regex);
+			if (match.Groups ["dv"] == null)
+				throw new Exception ("La expresión regular no contiene un grupo llamado \"dv\": " + regex);
+
+			// Get groups
 			var numeroString = match.Groups ["numero"].Value;
 			if (funcNumero != null)
 				numeroString = funcNumero (numeroString);
+			var digitoString = match.Groups ["dv"].Value;
+
+			// Check parts
+			if (numeroString.Length == 0)
+				throw new Exception (
+					string.Format (
+						"El número del Rut debe tener al menos un dígito. " +
+						"Texto: \"{0}\". " +
+						"Expresión regular: \"{1}\". " +
+						"Número: \"{2}\".",
+						texto,
+						regex,
+						numeroString));
+			if (digitoString.Length != 1)
+				throw new Exception (
+					string.Format (
+						"El dígito verificador del Rut debe tener un dígito. " +
+						"Texto: \"{0}\". " +
+						"Expresión regular: \"{1}\". " +
+						"Dígito verificador: \"{2}\".",
+						texto,
+						regex,
+						digitoString));
+
+			// Parse parts
 			var numero = int.Parse (numeroString);
-			var dv = match.Groups ["dv"].Value [0];
+			var dv = digitoString [0];
 
 			// Done
 			return new Rut (numero, dv);
