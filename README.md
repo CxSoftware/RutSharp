@@ -117,7 +117,11 @@ El tercer parámetro opcional es una función que puede procesar el número ante
 a entero. Esta función puede, por ejemplo, quitar los puntos del número. Ejemplo:
 
 ```
-Rut.Parse ("000.001.000x6", "^(?<numero>(\\d{3}\\.){2}\\d{3})x(?<dv>[\\dKk])$", x => x.Replace (".", string.Empty)); // 1.000-6
+// 1.000-6
+Rut.Parse (
+	"000.001.000x6",
+	"^(?<numero>(\\d{3}\\.){2}\\d{3})x(?<dv>[\\dKk])$",
+	x => x.Replace (".", string.Empty)); 
 ```
 
 
