@@ -63,7 +63,17 @@ namespace CxSoftware.RutSharp
 		/// <summary>
 		/// Usar minúscula para el dígito verificador (por ejemplo: 6.904.204-k)
 		/// </summary>
-		Minuscula = 0x20
+		Minuscula = 0x20,
+
+		/// <summary>
+		/// Agregar cero a la izquierda (por ejemplo: 06.904.204-K)
+		/// </summary>
+		ConCeroALaIzquierda = 0x40,
+
+		/// <summary>
+		/// Sin cero a la izquierda (por ejemplo: 6.904.204-K)
+		/// </summary>
+		SinCeroALaIzquierda = 0x80
 	}
 }
 
