@@ -481,6 +481,33 @@ namespace CxSoftware.RutSharp.Tests
 			var rut2 = new Rut (79584557);
 			Assert.AreNotEqual (rut1.GetHashCode (), rut2.GetHashCode ());
 		}
+
+		[Test]
+		public void TestCustomRegex ()
+		{
+			var rut = Rut.Parse ("^01-9", "(?<numero>\\d+)-(?<dv>[0-9Kk])$");
+			Assert.AreEqual (rut.Numero, 1);
+			Assert.AreEqual (rut.DV, '9');
+		}
+
+		[Test]
+		public void TestCustomRegex2 ()
+		{
+			var rut = Rut.Parse ("R02X7", "^R(?<numero>\\d+)X(?<dv>[0-9Kk])$");
+			Assert.AreEqual (rut.Numero, 2);
+			Assert.AreEqual (rut.DV, '7');
+		}
+
+		[Test]
+		public void TestCustomRegexWithAction ()
+		{
+			var rut = Rut.Parse (
+				"R0x2X7",
+				"^R(?<numero>[\\dx]+)X(?<dv>[0-9Kk])$",
+				texto => texto.Replace ("x", string.Empty));
+			Assert.AreEqual (rut.Numero, 2);
+			Assert.AreEqual (rut.DV, '7');
+		}
 	}
 }
 
