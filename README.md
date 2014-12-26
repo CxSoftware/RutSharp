@@ -61,19 +61,19 @@ Las reglas son máscaras de bits y, por lo tanto, pueden combinarse. Por ejemplo
 
 Las reglas disponibles son:
 
-* Ninguna: No se aplica ninguna regla especial. En el caso de Parse, esto permite soportar todos los formatos.
-* ConCeroALaIzquierda: Cero a la izquierda. En el caso de Parse, se exige un cero a la izquierda. En el caso de ToString, se genera con 
+* **Ninguna:** No se aplica ninguna regla especial. En el caso de Parse, esto permite soportar todos los formatos.
+* **ConCeroALaIzquierda:** Cero a la izquierda. En el caso de Parse, se exige un cero a la izquierda. En el caso de ToString, se genera con 
 un cero al inicio.
-* SinCeroALaIzquierda: Sin cero a la izquierda. En el caso de Parse, no se permite un ero a la izquierda. En el caso de ToString, se 
+* **SinCeroALaIzquierda:** Sin cero a la izquierda. En el caso de Parse, no se permite un ero a la izquierda. En el caso de ToString, se 
 genera sin un cero al inicio.
-* ConSeparadorDeMiles: Separador de miles. En el caso de Parse, se exige el separador (punto). En el caso de ToString, se utiliza el separador.
-* SinSeparadorDeMiles: Sin separador de miles. En el caso de Parse, se prohibe el uso de separador. En el caso de ToString, no se utiliza el 
+* **ConSeparadorDeMiles:** Separador de miles. En el caso de Parse, se exige el separador (punto). En el caso de ToString, se utiliza el separador.
+* **SinSeparadorDeMiles:** Sin separador de miles. En el caso de Parse, se prohibe el uso de separador. En el caso de ToString, no se utiliza el 
 separador.
-* ConGuion: Con guión. En el caso de Parse, se exige el guión. En el caso de ToString, se utiliza el guión.
-* SinGuion: Sin guión. En el caso de Parse, se prohibe el uso del guión. En el caso de ToString, no se utiliza un guión.
-* Mayuscula: Mayúscula. En el caso de Parse, se exige que el dígito verificador, si es K, esté escrito en mayúscula. En el caso de ToString, 
+* **ConGuion:** Con guión. En el caso de Parse, se exige el guión. En el caso de ToString, se utiliza el guión.
+* **SinGuion:** Sin guión. En el caso de Parse, se prohibe el uso del guión. En el caso de ToString, no se utiliza un guión.
+* **Mayuscula:** Mayúscula. En el caso de Parse, se exige que el dígito verificador, si es K, esté escrito en mayúscula. En el caso de ToString, 
 se utiliza mayúscula si el dígito verificador es K.
-* Minuscula: Minúscula. En el caso de Parse, se exige que el dígito verificador, si es K, esté escrito en minúscula. En el caso de ToString, 
+* **Minuscula:** Minúscula. En el caso de Parse, se exige que el dígito verificador, si es K, esté escrito en minúscula. En el caso de ToString, 
 se utiliza minúscula si el dígito verificador es K.
 
 ## Ejemplos
