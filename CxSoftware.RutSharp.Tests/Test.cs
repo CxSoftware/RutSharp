@@ -102,6 +102,44 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
+		public void TestParseReglasNingunaValid11 ()
+		{
+			var rut = Rut.Parse ("012.178.968-K");
+			Assert.AreEqual (rut.Numero, 12178968);
+			Assert.AreEqual (rut.DV, 'K');
+		}
+
+		[Test]
+		public void TestParseReglasConCeroALaIzquierda ()
+		{
+			var rut = Rut.Parse ("07370641-6", ReglasRut.ConCeroALaIzquierda);
+			Assert.AreEqual (rut.Numero, 7370641);
+			Assert.AreEqual (rut.DV, '6');
+		}
+
+		[Test]
+		[ExpectedException]
+		public void TestParseReglasConCeroALaIzquierdaInvalid ()
+		{
+			Rut.Parse ("7370641-6", ReglasRut.ConCeroALaIzquierda);
+		}
+
+		[Test]
+		public void TestParseReglasSinCeroALaIzquierda ()
+		{
+			var rut = Rut.Parse ("7370641-6", ReglasRut.SinCeroALaIzquierda);
+			Assert.AreEqual (rut.Numero, 7370641);
+			Assert.AreEqual (rut.DV, '6');
+		}
+
+		[Test]
+		[ExpectedException]
+		public void TestParseReglasSinCeroALaIzquierdaInvalid ()
+		{
+			Rut.Parse ("07370641-6", ReglasRut.SinCeroALaIzquierda);
+		}
+
+		[Test]
 		public void TestParseReglasConSeparadorDeMiles1 ()
 		{
 			var rut = Rut.Parse ("16.737.060-8");
