@@ -127,6 +127,7 @@ namespace CxSoftware.RutSharp
 		public override string ToString ()
 		{
 			return this.ToString (
+				ReglasRut.SinCeroALaIzquierda |
 				ReglasRut.ConSeparadorDeMiles |
 				ReglasRut.ConGuion |
 				ReglasRut.Mayuscula);
@@ -144,6 +145,10 @@ namespace CxSoftware.RutSharp
 		public string ToString (ReglasRut reglas)
 		{
 			var sb = new StringBuilder ();
+
+			// Part 0
+			if ((reglas & ReglasRut.ConCeroALaIzquierda) > 0)
+				sb.Append ("0");
 
 			// Part 1
 			if ((reglas & ReglasRut.SinSeparadorDeMiles) == ReglasRut.SinSeparadorDeMiles)
@@ -296,13 +301,21 @@ namespace CxSoftware.RutSharp
 			// Init
 			var sb = new StringBuilder ();
 
+			// Cero a la izquierda
+			if ((reglas & ReglasRut.ConCeroALaIzquierda) > 0)
+				sb.Append ("^0");
+			else if ((reglas & ReglasRut.SinCeroALaIzquierda) > 0)
+				sb.Append ("^");
+			else
+				sb.Append ("^0?");
+
 			// Número
 			if ((reglas & ReglasRut.ConSeparadorDeMiles) == ReglasRut.ConSeparadorDeMiles)
-				sb.Append ("^(?<numero>[1-9]\\d{0,2}(\\.\\d{3}){0,2})");
+				sb.Append ("(?<numero>[1-9]\\d{0,2}(\\.\\d{3}){0,2})");
 			else if ((reglas & ReglasRut.SinSeparadorDeMiles) == ReglasRut.SinSeparadorDeMiles)
-				sb.Append ("^(?<numero>[1-9]\\d{0,8})");
+				sb.Append ("(?<numero>[1-9]\\d{0,8})");
 			else
-				sb.Append ("^(?<numero>[1-9](\\d{0,2}(\\.\\d{3}){0,2}|\\d{0,8}))");
+				sb.Append ("(?<numero>[1-9](\\d{0,2}(\\.\\d{3}){0,2}|\\d{0,8}))");
 
 			// Guión
 			if ((reglas & ReglasRut.ConGuion) == ReglasRut.ConGuion)
