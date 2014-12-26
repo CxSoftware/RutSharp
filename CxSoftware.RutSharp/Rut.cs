@@ -151,7 +151,7 @@ namespace CxSoftware.RutSharp
 				sb.Append ("0");
 
 			// Part 1
-			if ((reglas & ReglasRut.SinSeparadorDeMiles) == ReglasRut.SinSeparadorDeMiles)
+			if ((reglas & ReglasRut.SinSeparadorDeMiles) > 0)
 				sb.Append (this.Numero.ToString (CultureInfo.InvariantCulture));
 			else
 				sb.Append (this.Numero.ToString ("#,#", ChileanCulture));
@@ -161,7 +161,7 @@ namespace CxSoftware.RutSharp
 				sb.Append ("-");
 
 			// Part 3
-			if ((reglas & ReglasRut.Minuscula) == ReglasRut.Minuscula)
+			if ((reglas & ReglasRut.Minuscula) > 0)
 				sb.Append (this.DV.ToString ().ToLower ());
 			else
 				sb.Append (this.DV);
@@ -347,23 +347,23 @@ namespace CxSoftware.RutSharp
 				sb.Append ("^0?");
 
 			// Número
-			if ((reglas & ReglasRut.ConSeparadorDeMiles) == ReglasRut.ConSeparadorDeMiles)
+			if ((reglas & ReglasRut.ConSeparadorDeMiles) > 0)
 				sb.Append ("(?<numero>[1-9]\\d{0,2}(\\.\\d{3}){0,2})");
-			else if ((reglas & ReglasRut.SinSeparadorDeMiles) == ReglasRut.SinSeparadorDeMiles)
+			else if ((reglas & ReglasRut.SinSeparadorDeMiles) > 0)
 				sb.Append ("(?<numero>[1-9]\\d{0,8})");
 			else
 				sb.Append ("(?<numero>[1-9](\\d{0,2}(\\.\\d{3}){0,2}|\\d{0,8}))");
 
 			// Guión
-			if ((reglas & ReglasRut.ConGuion) == ReglasRut.ConGuion)
+			if ((reglas & ReglasRut.ConGuion) > 0)
 				sb.Append ("\\-");
-			else if ((reglas & ReglasRut.SinGuion) != ReglasRut.SinGuion)
+			else if ((reglas & ReglasRut.SinGuion) == 0)
 				sb.Append ("\\-?");
 
 			// DV
-			if ((reglas & ReglasRut.Mayuscula) == ReglasRut.Mayuscula)
+			if ((reglas & ReglasRut.Mayuscula) > 0)
 				sb.Append ("(?<dv>[0-9K])$");
-			else if ((reglas & ReglasRut.Minuscula) == ReglasRut.Minuscula)
+			else if ((reglas & ReglasRut.Minuscula) > 0)
 				sb.Append ("(?<dv>[0-9k])$");
 			else
 				sb.Append ("(?<dv>[0-9Kk])$");
