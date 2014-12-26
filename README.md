@@ -50,8 +50,8 @@ El método ToString soporta reglas. Puede leer más detalles sobre las reglas m�
 Las reglas están definidas en la enumeración ReglasRut y pueden ser utilizadas en el segundo
 parámetro del método Parse y como parámetro en el método ToString. En ambos casos,
 el uso de reglas es opcional. Por defecto, al parsear un RUT, se soportan todos los formatos
-disponibles. En el caso de ToString, si se llama sin formato, se utiliza el formato con
-separadores de miles, guión y el dígito verificador en mayúsculas.
+disponibles. En el caso de ToString, si se llama sin formato, se utiliza el formato sin
+cero a la izquierda, con separadores de miles, con guión y el dígito verificador en mayúsculas.
 
 Las reglas son máscaras de bits y, por lo tanto, pueden combinarse. Por ejemplo:
 
