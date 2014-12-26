@@ -98,4 +98,26 @@ r.ToString (ReglasRut.ConCeroALaIzquierda | ReglasRut.SinSeparadorDeMiles | Regl
 
 ```
 
+## Parseo personalizado
+
+Es posible definir la expresión regular utilizada al llamar al método estático Rut.Parse.
+
+Opcionalmente, como segundo parámetro, se puede especificar la expresión regular. También
+opcionalmente, como tercer parámetro, se puede especificar una operación a realizar para
+modificar el número.
+
+Cuando se especifica una expresión regular, es necesario definir dos grupos: "numero" para el número del RUT
+y "dv" para el dígito verificador. Por ejemplo
+
+```
+Rut.Parse ("01x9", "^(?<numero>\\d+)x(?<dv>[\\dKk])$"); // 1-9
+```
+
+El tercer parámetro opcional es una función que puede procesar el número antes de ser transformado
+a entero. Esta función puede, por ejemplo, quitar los puntos del número. Ejemplo:
+
+```
+Rut.Parse ("000.001.000x6", "^(?<numero>(\\d{3}\\.){2}\\d{3})x(?<dv>[\\dKk])$", x => x.Replace (".", string.Empty)); // 1.000-6
+```
+
 
