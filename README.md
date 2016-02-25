@@ -1,6 +1,8 @@
 rutsharp
 ========
 
+[![Build status](https://ci.appveyor.com/api/projects/status/56eo5y6aoqheyvx7?svg=true)](https://ci.appveyor.com/project/juancri/rutsharp)
+
 Implementación del RUT chileno para Mono / .Net
 
 # Licencia
