@@ -7,17 +7,15 @@ namespace CxSoftware.RutSharp.Tests
 	public class Test
 	{
 		[Test]
-		[ExpectedException]
 		public void TestParseNull ()
 		{
-			Rut.Parse (null);
+			Assert.Throws <Exception> (() => Rut.Parse (null));
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestParseEmpty ()
 		{
-			Rut.Parse (string.Empty);
+			Assert.Throws <Exception> (() => Rut.Parse (string.Empty));
 		}
 
 		[Test]
@@ -118,10 +116,9 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestParseReglasConCeroALaIzquierdaInvalid ()
 		{
-			Rut.Parse ("7370641-6", ReglasRut.ConCeroALaIzquierda);
+			Assert.Throws <Exception> (() => Rut.Parse ("7370641-6", ReglasRut.ConCeroALaIzquierda));
 		}
 
 		[Test]
@@ -133,10 +130,9 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestParseReglasSinCeroALaIzquierdaInvalid ()
 		{
-			Rut.Parse ("07370641-6", ReglasRut.SinCeroALaIzquierda);
+			Assert.Throws <Exception> (() => Rut.Parse ("07370641-6", ReglasRut.SinCeroALaIzquierda));
 		}
 
 		[Test]
@@ -224,20 +220,15 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestParseConGuionInvalid1 ()
 		{
-			var rut = Rut.Parse ("22582584K", ReglasRut.ConGuion);
-			Assert.IsNotNull (rut);
-			Assert.AreEqual (rut.Numero, 22582584);
-			Assert.AreEqual (rut.DV, 'K');
+			Assert.Throws <Exception> (() => Rut.Parse ("22582584K", ReglasRut.ConGuion));
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestParseConGuionInvalid2 ()
 		{
-			Rut.Parse ("22582584--K", ReglasRut.ConGuion);
+			Assert.Throws <Exception> (() => Rut.Parse ("22582584--K", ReglasRut.ConGuion));
 		}
 
 		[Test]
@@ -250,10 +241,9 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestMinimumInvalid ()
 		{
-			new Rut (0);
+			Assert.Throws <Exception> (() => new Rut (0));
 		}
 
 		[Test]
@@ -266,10 +256,9 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestMaximumInvalid ()
 		{
-			new Rut (100000000);
+			Assert.Throws <Exception> (() => new Rut (100000000));
 		}
 
 		[Test]
@@ -432,10 +421,9 @@ namespace CxSoftware.RutSharp.Tests
 		}
 
 		[Test]
-		[ExpectedException]
 		public void TestWrongDV ()
 		{
-			new Rut (15568505, '1');
+			Assert.Throws <Exception> (() => new Rut (15568505, '1'));
 		}
 
 		[Test]
