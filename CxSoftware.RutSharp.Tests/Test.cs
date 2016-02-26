@@ -9,13 +9,13 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestParseNull ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse (null));
+			Assert.Throws <ArgumentNullException> (() => Rut.Parse (null));
 		}
 
 		[Test]
 		public void TestParseEmpty ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse (string.Empty));
+			Assert.Throws <ArgumentException> (() => Rut.Parse (string.Empty));
 		}
 
 		[Test]
@@ -118,7 +118,7 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestParseReglasConCeroALaIzquierdaInvalid ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse ("7370641-6", ReglasRut.ConCeroALaIzquierda));
+			Assert.Throws <ArgumentException> (() => Rut.Parse ("7370641-6", ReglasRut.ConCeroALaIzquierda));
 		}
 
 		[Test]
@@ -132,7 +132,7 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestParseReglasSinCeroALaIzquierdaInvalid ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse ("07370641-6", ReglasRut.SinCeroALaIzquierda));
+			Assert.Throws <ArgumentException> (() => Rut.Parse ("07370641-6", ReglasRut.SinCeroALaIzquierda));
 		}
 
 		[Test]
@@ -222,13 +222,13 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestParseConGuionInvalid1 ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse ("22582584K", ReglasRut.ConGuion));
+			Assert.Throws <ArgumentException> (() => Rut.Parse ("22582584K", ReglasRut.ConGuion));
 		}
 
 		[Test]
 		public void TestParseConGuionInvalid2 ()
 		{
-			Assert.Throws <Exception> (() => Rut.Parse ("22582584--K", ReglasRut.ConGuion));
+			Assert.Throws <ArgumentException> (() => Rut.Parse ("22582584--K", ReglasRut.ConGuion));
 		}
 
 		[Test]
@@ -243,7 +243,7 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestMinimumInvalid ()
 		{
-			Assert.Throws <Exception> (() => new Rut (0));
+			Assert.Throws <ArgumentOutOfRangeException> (() => new Rut (0));
 		}
 
 		[Test]
@@ -258,7 +258,7 @@ namespace CxSoftware.RutSharp.Tests
 		[Test]
 		public void TestMaximumInvalid ()
 		{
-			Assert.Throws <Exception> (() => new Rut (100000000));
+			Assert.Throws <System.ArgumentOutOfRangeException> (() => new Rut (100000000));
 		}
 
 		[Test]
